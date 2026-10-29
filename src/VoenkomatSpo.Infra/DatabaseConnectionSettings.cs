@@ -14,9 +14,13 @@ public static class DatabaseConnectionSettings
             throw new InvalidOperationException("POSTGRES_PORT must be an integer between 1 and 65535.");
         return new NpgsqlConnectionStringBuilder
         {
-            Host = RequiredVariable("POSTGRES_HOST"), Port = port,
-            Database = RequiredVariable("POSTGRES_DB"), Username = RequiredVariable("POSTGRES_USER"),
-            Password = RequiredVariable("POSTGRES_PASSWORD"), Timeout = 5, CommandTimeout = 10
+            Host = RequiredVariable("POSTGRES_HOST"),
+            Port = port,
+            Database = RequiredVariable("POSTGRES_DB"),
+            Username = RequiredVariable("POSTGRES_USER"),
+            Password = RequiredVariable("POSTGRES_PASSWORD"),
+            Timeout = 5,
+            CommandTimeout = 10
         }.ConnectionString;
     }
 

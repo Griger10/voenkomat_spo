@@ -54,8 +54,12 @@ public sealed class DocumentService(IDbContextFactory<VoenkomatDbContext> factor
         var number = $"{(request.FormNumber == 10 ? "ЛК" : "ОТ")}-{request.Year}-{Guid.NewGuid().ToString("N")[..8].ToUpperInvariant()}";
         var document = new GeneratedDocument
         {
-            Number = number, FormNumber = request.FormNumber, Year = request.Year,
-            FormedAt = now, FormedBy = actor.Id, CreatorLogin = actor.Login
+            Number = number,
+            FormNumber = request.FormNumber,
+            Year = request.Year,
+            FormedAt = now,
+            FormedBy = actor.Id,
+            CreatorLogin = actor.Login
         };
         PdfContent content;
         if (request.FormNumber == 10)
@@ -102,8 +106,14 @@ public sealed class DocumentService(IDbContextFactory<VoenkomatDbContext> factor
             document.Details = $"Годовая отчётность • {cards.Count} чел.";
             document.IsReconciled = cards.Count > 0 && cards.All(x => x.IsChecked);
             if (commissariat is not null)
-                document.Report = new Report { Year = request.Year, FormedAt = now, FormedBy = actor.Id,
-                    CommissariatId = commissariat.Id, IsReconciled = document.IsReconciled };
+                document.Report = new Report
+                {
+                    Year = request.Year,
+                    FormedAt = now,
+                    FormedBy = actor.Id,
+                    CommissariatId = commissariat.Id,
+                    IsReconciled = document.IsReconciled
+                };
             var sections = new List<PdfSection>
             {
                 Section("Параметры отчёта", ("Отчётный год", request.Year.ToString()), ("Военный комиссариат", document.CommissariatName),

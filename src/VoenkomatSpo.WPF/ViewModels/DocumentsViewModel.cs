@@ -242,11 +242,13 @@ public partial class DocumentsViewModel(IDocumentService service, IDocumentDeskt
     [RelayCommand] private async Task NextAsync() { if (CanNext) { Page++; await RefreshAsync(lifetime.Token); } }
     [RelayCommand] private async Task GoToPageAsync(int value) { Page = value; await RefreshAsync(lifetime.Token); }
     [RelayCommand] private void SignOut() { if (!IsWorking) signOut(); }
-    [RelayCommand] private void Help() => desktop.ShowInformation("Формирование документов",
+    [RelayCommand]
+    private void Help() => desktop.ShowInformation("Формирование документов",
         "Форма № 10: выберите студента и сформируйте личную карточку.\nФорма № 6: выберите год и военный комиссариат.\n\nПосле формирования выберите место сохранения PDF. Кнопка «Сохранить PDF» позволяет повторно сохранить последний сформированный файл.\n\nPDF содержит базовые сведения и номер формы. Передача в военкомат выполняется вручную.");
     [RelayCommand] private void Notifications() => desktop.ShowInformation("Состояние документов", $"В журнале: {AllCount}\nСверено: {ReconciledCount}\nТребуют сверки: {AllCount - ReconciledCount}\nЗа текущий месяц: {MonthCount}");
     [RelayCommand] private void Profile() => desktop.ShowInformation("Мои данные", $"Логин: {user.Login}\nРоль: {user.Role}\n\nДоступ: {string.Join(", ", user.AccessRights)}");
-    [RelayCommand] private void Regulation() => desktop.ShowInformation("Порядок формирования документов",
+    [RelayCommand]
+    private void Regulation() => desktop.ShowInformation("Порядок формирования документов",
         "1. Выберите форму № 10 для личной карточки или форму № 6 для годового отчёта.\n2. Укажите студента либо год и военный комиссариат.\n3. Сформируйте и сохраните PDF.\n4. Проверьте документ перед передачей в военный комиссариат.");
 
     public bool CanWrite(DocumentRow row) => row.FormNumber == 10 ? CanEditCards : CanEditReports;

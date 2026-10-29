@@ -31,8 +31,11 @@ public sealed class AuthenticationService(
             user.LastLoginAt = now;
             db.ActionLogs.Add(new ActionLog
             {
-                Action = "Вход в систему", TableName = "User", RecordId = user.Id,
-                RecordedAt = now, UserId = user.Id
+                Action = "Вход в систему",
+                TableName = "User",
+                RecordId = user.Id,
+                RecordedAt = now,
+                UserId = user.Id
             });
             await db.SaveChangesAsync(cancellationToken);
             return new AuthenticatedUser(user.Id, user.Login, user.Role.Name,

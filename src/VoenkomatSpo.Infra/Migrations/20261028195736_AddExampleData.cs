@@ -5,10 +5,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VoenkomatSpo.Infra.Migrations;
 
-/// <summary>
-/// Fictional examples with positive IDs. EF Core advances identity sequences after insertion.
-/// Password format: pbkdf2-sha256$iterations$base64-salt$base64-key.
-/// </summary>
 public partial class AddExampleData : Migration
 {
     protected override void Up(MigrationBuilder migrationBuilder)

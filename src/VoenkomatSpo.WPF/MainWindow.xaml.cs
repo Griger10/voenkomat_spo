@@ -1,23 +1,24 @@
-﻿using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using VoenkomatSpo.WPF.ViewModels;
 
 namespace VoenkomatSpo.WPF;
 
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
 public partial class MainWindow : Window
 {
-    public MainWindow()
+    private readonly LoginViewModel viewModel;
+
+    public MainWindow(LoginViewModel viewModel)
     {
         InitializeComponent();
+        this.viewModel = viewModel;
+        DataContext = viewModel;
+        Loaded += async (_, _) => await viewModel.InitializeCommand.ExecuteAsync(null);
+    }
+
+    protected override void OnClosed(EventArgs e)
+    {
+        viewModel.InitializeCommand.Cancel();
+        viewModel.SignInCommand.Cancel();
+        base.OnClosed(e);
     }
 }

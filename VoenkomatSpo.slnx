@@ -4,4 +4,7 @@
     <Project Path="src/VoenkomatSpo.Infra/VoenkomatSpo.Infra.csproj" />
     <Project Path="src/VoenkomatSpo.WPF/VoenkomatSpo.WPF.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/VoenkomatSpo.Tests/VoenkomatSpo.Tests.csproj" />
+  </Folder>
 </Solution>

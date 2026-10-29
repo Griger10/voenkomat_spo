@@ -15,6 +15,7 @@ public class VoenkomatDbContext(DbContextOptions<VoenkomatDbContext> options) : 
     public DbSet<Report> Reports => Set<Report>();
     public DbSet<ChangeEvent> ChangeEvents => Set<ChangeEvent>();
     public DbSet<ActionLog> ActionLogs => Set<ActionLog>();
+    public DbSet<GeneratedDocument> GeneratedDocuments => Set<GeneratedDocument>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

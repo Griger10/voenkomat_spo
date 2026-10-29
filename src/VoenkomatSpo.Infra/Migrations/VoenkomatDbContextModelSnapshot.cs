@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -142,6 +142,110 @@ namespace VoenkomatSpo.Infra.Migrations
                         .IsUnique();
 
                     b.ToTable("City");
+                });
+
+            modelBuilder.Entity("VoenkomatSpo.Core.Models.GeneratedDocument", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CommissariatId")
+                        .HasColumnType("integer")
+                        .HasColumnName("commissariat_id");
+
+                    b.Property<string>("CommissariatName")
+                        .IsRequired()
+                        .HasMaxLength(400)
+                        .HasColumnType("character varying(400)")
+                        .HasColumnName("commissariat_name");
+
+                    b.Property<string>("CreatorLogin")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("creator_login");
+
+                    b.Property<string>("Details")
+                        .IsRequired()
+                        .HasMaxLength(400)
+                        .HasColumnType("character varying(400)")
+                        .HasColumnName("details");
+
+                    b.Property<int>("FormNumber")
+                        .HasColumnType("integer")
+                        .HasColumnName("form_number");
+
+                    b.Property<DateTime>("FormedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("formed_at");
+
+                    b.Property<int>("FormedBy")
+                        .HasColumnType("integer")
+                        .HasColumnName("formed_by");
+
+                    b.Property<bool>("IsReconciled")
+                        .IsConcurrencyToken()
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_reconciled");
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("character varying(80)")
+                        .HasColumnName("number");
+
+                    b.Property<string>("PdfPath")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("pdf_path");
+
+                    b.Property<int?>("ReportId")
+                        .HasColumnType("integer")
+                        .HasColumnName("report_id");
+
+                    b.Property<int?>("StudentId")
+                        .HasColumnType("integer")
+                        .HasColumnName("student_id");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasMaxLength(400)
+                        .HasColumnType("character varying(400)")
+                        .HasColumnName("subject");
+
+                    b.Property<DateTime?>("SubmittedAt")
+                        .IsConcurrencyToken()
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("submitted_at");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("integer")
+                        .HasColumnName("year");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommissariatId");
+
+                    b.HasIndex("FormedAt");
+
+                    b.HasIndex("FormedBy");
+
+                    b.HasIndex("Number")
+                        .IsUnique();
+
+                    b.HasIndex("ReportId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("GeneratedDocument", t =>
+                        {
+                            t.HasCheckConstraint("CK_GeneratedDocument_Form", "form_number IN (6, 10)");
+                        });
                 });
 
             modelBuilder.Entity("VoenkomatSpo.Core.Models.MilitaryCommissariat", b =>
@@ -540,6 +644,38 @@ namespace VoenkomatSpo.Infra.Migrations
                     b.Navigation("Commissariat");
 
                     b.Navigation("Notifier");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("VoenkomatSpo.Core.Models.GeneratedDocument", b =>
+                {
+                    b.HasOne("VoenkomatSpo.Core.Models.MilitaryCommissariat", "Commissariat")
+                        .WithMany()
+                        .HasForeignKey("CommissariatId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("VoenkomatSpo.Core.Models.User", "Former")
+                        .WithMany()
+                        .HasForeignKey("FormedBy")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("VoenkomatSpo.Core.Models.Report", "Report")
+                        .WithMany()
+                        .HasForeignKey("ReportId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("VoenkomatSpo.Core.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Commissariat");
+
+                    b.Navigation("Former");
+
+                    b.Navigation("Report");
 
                     b.Navigation("Student");
                 });

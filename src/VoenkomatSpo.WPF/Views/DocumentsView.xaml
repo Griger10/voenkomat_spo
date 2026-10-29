@@ -1,0 +1,294 @@
+<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:svg="http://sharpvectors.codeplex.com/svgc/" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="VoenkomatSpo.WPF.Views.DocumentsView" FontFamily="{StaticResource InterFont}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/VoenkomatSpo.WPF;component/Styles/DocumentsStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Background="#F2F4F1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="56" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Border Grid.RowSpan="2" Background="{StaticResource PrimaryBrush}">
+            <DockPanel LastChildFill="True">
+                <Border DockPanel.Dock="Bottom" BorderBrush="#33C1C8C1" BorderThickness="0,1,0,0" Padding="12">
+                    <Border Background="#0DFFFFFF" CornerRadius="4" Padding="8">
+                        <StackPanel>
+                            <DockPanel>
+                                <svg:SvgViewbox Source="/Assets/Documents/imgContainer24.svg" Width="14.6667" Height="14" DockPanel.Dock="Right" />
+                                <TextBlock Text="ФЗ-53 РФ Регламент" Foreground="#80A88F" FontSize="11" />
+                            </DockPanel>
+                            <TextBlock Text="PDF" Foreground="#CC80A88F" FontSize="11" Margin="0,3,0,0" />
+                        </StackPanel>
+                    </Border>
+                </Border>
+                <StackPanel>
+                    <Border BorderBrush="#33C1C8C1" BorderThickness="0,0,0,1" Height="64" Padding="20,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Border Width="32" Height="32" CornerRadius="4" Background="#1AFFFFFF" Margin="0,0,12,0">
+                                <svg:SvgViewbox Source="/Assets/Documents/imgContainer16.svg" Width="13.3333" Height="16.6667" />
+                            </Border>
+                            <StackPanel>
+                                <TextBlock Text="Воинский учёт СПО" FontWeight="SemiBold" Foreground="White" />
+                                <TextBlock Text="АСУ КОЛЛЕДЖ" Foreground="#80A88F" FontSize="11" Margin="0,2,0,0" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    <TextBlock Text="УПРАВЛЕНИЕ УЧЁТОМ" FontSize="11" Foreground="#80A88F" Margin="20,12,0,12" />
+                    <StackPanel Margin="12,0">
+                        <Button Style="{StaticResource NavigationButton}" IsEnabled="False" ToolTip="Раздел не входит в текущее окно" ToolTipService.ShowOnDisabled="True">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Source="/Assets/Documents/imgContainer17.svg" Width="16.6667" Height="16.6667" Margin="0,0,12,0" />
+                                <TextBlock Text="Студенты" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" FontSize="13" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource NavigationButton}" IsEnabled="False" ToolTip="Раздел не входит в текущее окно" ToolTipService.ShowOnDisabled="True">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Source="/Assets/Documents/imgContainer18.svg" Width="16.6667" Height="16.6667" Margin="0,0,12,0" />
+                                <TextBlock Text="Изменения сведений" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" FontSize="13" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource NavigationButton}" Command="{Binding InitializeCommand}" Background="#26FFFFFF" Foreground="White">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Source="/Assets/Documents/imgContainer19.svg" Width="13.3333" Height="16.6667" Margin="0,0,12,0" />
+                                <TextBlock Text="Документы" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" FontSize="16" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource NavigationButton}" IsEnabled="False" ToolTip="Раздел не входит в текущее окно" ToolTipService.ShowOnDisabled="True">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Source="/Assets/Documents/imgContainer20.svg" Width="17.5" Height="15.8333" Margin="0,0,12,0" />
+                                <TextBlock Text="Запросы документов" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" FontSize="13" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource NavigationButton}" IsEnabled="False" ToolTip="Раздел не входит в текущее окно" ToolTipService.ShowOnDisabled="True">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Source="/Assets/Documents/imgContainer21.svg" Width="16.6667" Height="16.6667" Margin="0,0,12,0" />
+                                <TextBlock Text="Архив" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" FontSize="13" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                    <TextBlock Text="СИСТЕМА И ДОСТУП" FontSize="11" Foreground="#80A88F" Margin="20,20,0,12" />
+                    <StackPanel Margin="12,0">
+                        <Button Style="{StaticResource NavigationButton}" IsEnabled="False" ToolTip="Раздел не входит в текущее окно" ToolTipService.ShowOnDisabled="True">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Source="/Assets/Documents/imgContainer22.svg" Width="16.5417" Height="14.1667" Margin="0,0,12,0" />
+                                <TextBlock Text="Пользователи" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" FontSize="13" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource NavigationButton}" Command="{Binding ProfileCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Source="/Assets/Documents/imgContainer23.svg" Width="15" Height="15" Margin="0,0,12,0" />
+                                <TextBlock Text="Мои данные" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" FontSize="13" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                    <Button Style="{StaticResource NavigationButton}" Command="{Binding SignOutCommand}" Margin="12,20,12,0" IsEnabled="{Binding IsIdle}">
+                        <TextBlock Text="Выйти из системы" Foreground="#80A88F" />
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+        <Border Grid.Column="1" Background="White" BorderBrush="#C1C8C1" BorderThickness="0,0,0,1" Padding="32,0">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Style="{StaticResource DocumentButton}" Command="{Binding HelpCommand}" ToolTip="Помощь" AutomationProperties.Name="Помощь">
+                        <svg:SvgViewbox Source="/Assets/Documents/imgContainer15.svg" Width="16.6667" Height="16.6667" />
+                    </Button>
+                    <Border Width="1" Height="32" Background="#C1C8C1" Margin="16,0" />
+                    <Button Style="{StaticResource DocumentButton}" Command="{Binding ProfileCommand}" Padding="0">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Margin="0,0,12,0">
+                                <TextBlock Text="{Binding User.Login}" FontSize="14" FontWeight="SemiBold" TextAlignment="Right" />
+                                <TextBlock Text="{Binding User.Role}" FontSize="11" TextAlignment="Right" />
+                            </StackPanel>
+                            <Border Width="32" Height="32" CornerRadius="12" BorderBrush="#C1C8C1" BorderThickness="1">
+                                <Image Source="/Assets/emblem.png" />
+                            </Border>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+                <TextBlock Text="{Binding Campaign}" Foreground="{StaticResource SecondaryTextBrush}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Margin="0,0,20,0" />
+            </DockPanel>
+        </Border>
+        <Grid Grid.Row="1" Grid.Column="1" Margin="20,12">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <DockPanel Margin="0,0,0,8" Grid.Row="0">
+                <StackPanel>
+                    <TextBlock FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource SecondaryTextBrush}" Text="ЭЛЕКТРОННЫЙ ДОКУМЕНТООБОРОТ  •  ПРИКАЗ МО РФ № 700 / ИНСТРУКЦИЯ" />
+                    <TextBlock Text="Документы для военкомата" FontSize="24" FontWeight="Bold" Margin="0,4,0,0" />
+                </StackPanel>
+            </DockPanel>
+            <Border Background="White" CornerRadius="8" Margin="0,0,0,10" Grid.Row="1">
+                <StackPanel>
+                    <Border Background="#80F2F4F1" Padding="16,8" CornerRadius="8,8,0,0">
+                        <DockPanel>
+                            <TextBlock DockPanel.Dock="Right" Text="ФЗ-53 / Регламент ВУ-2024" FontFamily="{StaticResource MonoFont}" FontSize="12" VerticalAlignment="Center" />
+                            <StackPanel Orientation="Horizontal">
+                                <Ellipse Width="10" Height="10" Fill="{StaticResource PrimaryBrush}" Margin="0,0,8,0" />
+                                <TextBlock Text="Формирование отчётных и учётных документов" FontSize="16" FontWeight="SemiBold" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                    <StackPanel Margin="16,8">
+                        <Grid IsEnabled="{Binding IsIdle}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="12" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <RadioButton GroupName="Forms" IsChecked="{Binding IsForm10, Mode=TwoWay}" Style="{StaticResource FormCard}" Padding="8">
+                                <StackPanel>
+                                    <WrapPanel>
+                                        <TextBlock Text="Личная карточка — форма № 10" FontSize="14" FontWeight="SemiBold" />
+                                        <Border Background="#1A002716" CornerRadius="2" Padding="6,2" Margin="4,0,0,0">
+                                            <TextBlock Text="Обязательно" FontSize="11" />
+                                        </Border>
+                                    </WrapPanel>
+                                    <TextBlock Text="Личная карточка выбранного студента." Foreground="{StaticResource SecondaryTextBrush}" Margin="0,4,0,0" LineHeight="16" TextWrapping="Wrap" FontSize="11" />
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton Grid.Column="2" GroupName="Forms" IsChecked="{Binding IsForm6, Mode=TwoWay}" Style="{StaticResource FormCard}" Padding="8">
+                                <StackPanel>
+                                    <WrapPanel>
+                                        <TextBlock Text="Отчёт — форма № 6" FontSize="14" FontWeight="SemiBold" />
+                                        <Border Background="#E1E3E0" CornerRadius="2" Padding="6,2" Margin="4,0,0,0">
+                                            <TextBlock Text="Годовой" FontSize="11" />
+                                        </Border>
+                                    </WrapPanel>
+                                    <TextBlock Text="Годовой отчёт с распределением по военкоматам." Foreground="{StaticResource SecondaryTextBrush}" Margin="0,4,0,0" LineHeight="16" TextWrapping="Wrap" FontSize="11" />
+                                </StackPanel>
+                            </RadioButton>
+                        </Grid>
+                        <Border Background="#F2F4F1" Padding="12,8" CornerRadius="8" Margin="0,8,0,0" IsEnabled="{Binding IsIdle}">
+                            <StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="7*" />
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="5*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Visibility="{Binding IsForm10, Converter={StaticResource BoolVisibility}}">
+                                        <DockPanel>
+                                            <TextBlock DockPanel.Dock="Right" Text="{Binding StudentCountLabel}" FontSize="12" FontFamily="{StaticResource MonoFont}" />
+                                            <TextBlock Text="Студент (призывник / военнообязанный)" Style="{StaticResource DocumentLabel}" />
+                                        </DockPanel>
+                                        <ComboBox ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent}" Style="{StaticResource DocumentCombo}" AutomationProperties.Name="Студент" />
+                                    </StackPanel>
+                                    <Grid Visibility="{Binding IsForm6, Converter={StaticResource BoolVisibility}}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100" />
+                                            <ColumnDefinition Width="12" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel>
+                                            <TextBlock Text="Отчётный год" Style="{StaticResource DocumentLabel}" />
+                                            <ComboBox ItemsSource="{Binding Years}" SelectedItem="{Binding SelectedYear}" Style="{StaticResource DocumentCombo}" AutomationProperties.Name="Отчётный год" />
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="2">
+                                            <TextBlock Text="Военный комиссариат" Style="{StaticResource DocumentLabel}" />
+                                            <ComboBox ItemsSource="{Binding Commissariats}" SelectedItem="{Binding SelectedCommissariat}" Style="{StaticResource DocumentCombo}" AutomationProperties.Name="Военный комиссариат" />
+                                        </StackPanel>
+                                    </Grid>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock Text="Тип выгрузки документа" Style="{StaticResource DocumentLabel}" />
+                                        <ComboBox ItemsSource="{Binding Forms}" SelectedValuePath="Key" SelectedValue="{Binding SelectedForm}" Style="{StaticResource DocumentCombo}" AutomationProperties.Name="Тип выгрузки документа" />
+                                    </StackPanel>
+                                </Grid>
+                                <WrapPanel Margin="0,6,0,0" Visibility="{Binding IsForm10, Converter={StaticResource BoolVisibility}}">
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
+                                        <svg:SvgViewbox Source="/Assets/Documents/imgContainer3.svg" Width="13.3333" Height="13.3333" Margin="0,0,4,0" />
+                                        <TextBlock Text="{Binding ContextFitness}" FontSize="11" TextWrapping="Wrap" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <svg:SvgViewbox Source="/Assets/Documents/imgContainer4.svg" Width="13.3333" Height="12" Margin="0,0,4,0" />
+                                        <TextBlock Text="{Binding ContextCommissariat}" FontSize="11" TextWrapping="Wrap" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="12,0,0,0">
+                                        <svg:SvgViewbox Source="/Assets/Documents/imgContainer5.svg" Width="13.3333" Height="12" Margin="0,0,4,0" />
+                                        <TextBlock Text="{Binding ContextStatus}" Foreground="{StaticResource AccentBrush}" FontSize="11" TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </WrapPanel>
+                            </StackPanel>
+                        </Border>
+                        <DockPanel Margin="0,8,0,6">
+                            <TextBlock DockPanel.Dock="Right" Text="{Binding CheckLabel}" FontFamily="{StaticResource MonoFont}" FontSize="10" VerticalAlignment="Center" Foreground="{StaticResource SecondaryTextBrush}" />
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                <Button Command="{Binding GenerateCommand}" Style="{StaticResource PrimaryButton}" HorizontalAlignment="Left" Padding="20,10" Width="232" Height="30">
+                                    <StackPanel Orientation="Horizontal">
+                                        <svg:SvgViewbox Source="/Assets/Documents/imgContainer6.svg" Width="13.5" Height="13.5" Margin="0,0,8,0" />
+                                        <TextBlock Text="Сформировать документ" Foreground="White" FontWeight="SemiBold" FontSize="10" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Content="Сохранить PDF" Command="{Binding SaveGeneratedCommand}" Style="{StaticResource DocumentButton}" Margin="8,0,0,0" />
+                            </StackPanel>
+                        </DockPanel>
+                        <Border Background="#33B4EDC7" Padding="8" CornerRadius="8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <svg:SvgViewbox Source="/Assets/Documents/imgContainer7.svg" Width="16.5" Height="18.3333" Margin="0,0,12,0" />
+                                <TextBlock Grid.Column="1" TextWrapping="Wrap" LineHeight="16" Foreground="#396D4F" FontSize="11" Text="Сохраните сформированный PDF на компьютер. Передача документа в ВК выполняется вручную." />
+                            </Grid>
+                        </Border>
+                        <ProgressBar Height="3" Margin="0,12,0,0" IsIndeterminate="{Binding IsWorking, FallbackValue=False, TargetNullValue=False}" Foreground="{StaticResource AccentBrush}" Visibility="{Binding IsWorking, Converter={StaticResource BoolVisibility}, FallbackValue=Collapsed, TargetNullValue=Collapsed}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            <Border Background="White" Padding="8" CornerRadius="4" Margin="0,0,0,6" Grid.Row="2">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Message}" Value="">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <TextBlock Text="{Binding Message}" TextWrapping="Wrap">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="{StaticResource AccentBrush}" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsError}" Value="True">
+                                    <Setter Property="Foreground" Value="#BA1A1A" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Border>
+            <DockPanel Margin="0,8,0,0" Grid.Row="4">
+                <Button Content="Обновить данные" Command="{Binding InitializeCommand}" Style="{StaticResource DocumentButton}" HorizontalAlignment="Left" Margin="6,0,0,0" DockPanel.Dock="Right" />
+                <Button Style="{StaticResource DocumentButton}" Command="{Binding RegulationCommand}" DockPanel.Dock="Right" Background="Transparent">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Регламент ВК ВО" Foreground="{StaticResource AccentBrush}" FontSize="11" />
+                        <svg:SvgViewbox Source="/Assets/Documents/imgContainer13.svg" Width="10.6667" Height="10.6667" Margin="6,0,0,0" />
+                    </StackPanel>
+                </Button>
+                <StackPanel Orientation="Horizontal">
+                    <Border Background="White" CornerRadius="4" Width="28" Height="28" Margin="0,0,12,0">
+                        <svg:SvgViewbox Source="/Assets/Documents/imgContainer12.svg" Width="13.3333" Height="16.6667" />
+                    </Border>
+                    <StackPanel>
+                        <TextBlock Text="Контроль сроков представления отчётности" FontWeight="SemiBold" FontSize="11" />
+                        <TextBlock Text="Сформируйте и сохраните PDF перед передачей в военкомат." Foreground="{StaticResource SecondaryTextBrush}" Margin="0,4,0,0" FontSize="11" />
+                    </StackPanel>
+                </StackPanel>
+            </DockPanel>
+        </Grid>
+    </Grid>
+</UserControl>

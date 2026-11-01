@@ -1,0 +1,57 @@
+name: PR build and artifacts
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
+
+jobs:
+  build:
+    name: Build and test (${{ matrix.configuration }})
+    runs-on: windows-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        configuration: [Debug, Release]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up .NET 10
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore
+        run: dotnet restore VoenkomatSpo.slnx
+
+      - name: Build
+        run: dotnet build VoenkomatSpo.slnx --configuration ${{ matrix.configuration }} --no-restore
+
+      - name: Test
+        run: dotnet test tests/VoenkomatSpo.Tests/VoenkomatSpo.Tests.csproj --configuration ${{ matrix.configuration }} --no-build --no-restore --logger "trx;LogFileName=tests.trx" --results-directory artifacts/test-results
+
+      - name: Publish application
+        run: dotnet publish src/VoenkomatSpo.WPF/VoenkomatSpo.WPF.csproj --configuration ${{ matrix.configuration }} --no-build --no-restore --self-contained false --output artifacts/publish
+
+      - name: Upload build archive
+        uses: actions/upload-artifact@v7
+        with:
+          name: build-${{ matrix.configuration }}
+          path: artifacts/publish/
+          if-no-files-found: error
+          retention-days: 14

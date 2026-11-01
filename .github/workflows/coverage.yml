@@ -1,0 +1,93 @@
+name: Main code coverage
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
+
+jobs:
+  build:
+    name: Build Release
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up .NET 10
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore
+        run: dotnet restore VoenkomatSpo.slnx --artifacts-path artifacts/build
+
+      - name: Build Release
+        run: dotnet build VoenkomatSpo.slnx --configuration Release --no-restore --artifacts-path artifacts/build
+
+      - name: Share compiled assemblies with test job
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-test-binaries
+          path: artifacts/build/bin/
+          if-no-files-found: error
+          retention-days: 1
+
+  test:
+    name: Test and collect coverage
+    needs: build
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up .NET 10
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore test dependencies
+        run: dotnet restore VoenkomatSpo.slnx --artifacts-path artifacts/build
+
+      - name: Download compiled assemblies
+        uses: actions/download-artifact@v8
+        with:
+          name: release-test-binaries
+          path: artifacts/build/bin/
+
+      - name: Test with Cobertura coverage
+        run: dotnet test tests/VoenkomatSpo.Tests/VoenkomatSpo.Tests.csproj --configuration Release --no-build --no-restore --artifacts-path artifacts/build --collect "XPlat Code Coverage" --settings tests/coverage.runsettings --logger "trx;LogFileName=tests.trx" --results-directory artifacts/test-results
+
+      - name: Prepare coverage artifact
+        shell: pwsh
+        run: |
+          $reports = @(Get-ChildItem -Path artifacts/test-results/*/coverage.cobertura.xml -File)
+          if ($reports.Count -ne 1) {
+            throw "Expected one Cobertura report, found $($reports.Count)."
+          }
+          New-Item -ItemType Directory -Force -Path artifacts/coverage | Out-Null
+          Copy-Item -LiteralPath $reports[0].FullName -Destination artifacts/coverage/coverage.cobertura.xml
+          [xml]$coverage = Get-Content -LiteralPath artifacts/coverage/coverage.cobertura.xml -Raw
+          $lineRate = [double]::Parse($coverage.coverage.'line-rate', [Globalization.CultureInfo]::InvariantCulture)
+          $branchRate = [double]::Parse($coverage.coverage.'branch-rate', [Globalization.CultureInfo]::InvariantCulture)
+          ('Line coverage: {0:P2}; branch coverage: {1:P2}' -f $lineRate, $branchRate) | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v7
+        with:
+          name: code-coverage
+          path: artifacts/coverage/coverage.cobertura.xml
+          if-no-files-found: error
+          retention-days: 14

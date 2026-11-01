@@ -128,6 +128,7 @@ public sealed class DocumentService(IDbContextFactory<VoenkomatDbContext> factor
                     ("Категория учёта / годности", $"{card.RecordCategory} / {card.FitnessCategory ?? "Не определена"}"), ("Военный комиссариат", card.Commissariat.Name)));
             content = new("Форма № 6", $"Годовой отчёт по воинскому учёту за {request.Year} год • № {number}", sections);
         }
+        content = content with { IncludeReconciliationSignature = true };
         var pdf = await Task.Run(() => renderer.Render(content), cancellationToken);
         cancellationToken.ThrowIfCancellationRequested();
         Directory.CreateDirectory(this.documentDirectory);

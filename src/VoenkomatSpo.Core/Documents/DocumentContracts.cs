@@ -36,7 +36,8 @@ public interface IDocumentService
 }
 
 public sealed record PdfSection(string Heading, IReadOnlyList<KeyValuePair<string, string>> Fields);
-public sealed record PdfContent(string Title, string Subtitle, IReadOnlyList<PdfSection> Sections);
+public sealed record PdfContent(string Title, string Subtitle, IReadOnlyList<PdfSection> Sections,
+    bool IncludeReconciliationSignature = false);
 
 public interface IPdfRenderer
 {

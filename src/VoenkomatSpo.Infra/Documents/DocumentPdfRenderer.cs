@@ -69,6 +69,22 @@ public sealed class DocumentPdfRenderer : IPdfRenderer
                 row.Cells[1].AddParagraph(string.IsNullOrWhiteSpace(field.Value) ? "Не указано" : field.Value).Format.SpaceAfter = 0;
             }
         }
+        if (content.IncludeReconciliationSignature)
+        {
+            var signature = section.AddTable();
+            signature.AddColumn(Unit.FromCentimeter(17.4));
+            var signatureRow = signature.AddRow();
+            signatureRow.TopPadding = Unit.FromPoint(22);
+            signatureRow.BottomPadding = Unit.FromPoint(8);
+            var cell = signatureRow.Cells[0];
+            var confirmation = cell.AddParagraph("Сведения сверены, расхождений нет.");
+            confirmation.Format.Font.Bold = true;
+            confirmation.Format.SpaceAfter = Unit.FromPoint(18);
+            var name = cell.AddParagraph("Ответственное лицо (ФИО): ______________________________________");
+            name.Format.SpaceAfter = Unit.FromPoint(18);
+            var signing = cell.AddParagraph("Подпись: ____________________     Дата сверки: «___» __________ 20___ г.");
+            signing.Format.SpaceAfter = 0;
+        }
         var footer = section.Footers.Primary.AddParagraph();
         footer.Format.Font.Size = 8;
         footer.Format.Alignment = ParagraphAlignment.Right;

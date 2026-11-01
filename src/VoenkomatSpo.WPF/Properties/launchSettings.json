@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "VoenkomatSpo.WPF": {
+      "commandName": "Project",
+      "workingDirectory": "$(MSBuildProjectDirectory)"
+    }
+  }
+}

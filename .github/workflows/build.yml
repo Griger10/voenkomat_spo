@@ -41,6 +41,9 @@ jobs:
 
       - name: Build
         run: dotnet build VoenkomatSpo.slnx --configuration ${{ matrix.configuration }} --no-restore
+      
+      - name: Lint
+        run: dotnet tool install dotnet-format --global && dotnet format --check
 
       - name: Test
         run: dotnet test tests/VoenkomatSpo.Tests/VoenkomatSpo.Tests.csproj --configuration ${{ matrix.configuration }} --no-build --no-restore --logger "trx;LogFileName=tests.trx" --results-directory artifacts/test-results
